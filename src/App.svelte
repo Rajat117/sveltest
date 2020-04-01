@@ -1,36 +1,25 @@
 <script>
-  //   import Login from "./layout/Login.svelte";
-  export let name;
+  import { Router, Link, Route } from "svelte-routing";
+
+  import Login from "./wrapper/Login.svelte";
+  import Register from "./wrapper/Register.svelte";
+  import Home from "./layout/Home.svelte";
+  export let url = "";
 </script>
 
-<style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</svelte:head>
 
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
-</style>
-
-<main>
-  <h1>Hello {name}!</h1>
-  <p>
-    Visit the
-    <a href="https://svelte.dev/tutorial">Svelte tutorial</a>
-    to learn how to build Svelte apps.
-  </p>
-  <!-- <Login /> -->
-</main>
+<Router {url}>
+  <div>
+    <Route path="Login" caseSensitive={false} component={Login} />
+    <Route path="Register" component={Register} />
+    <Route path="Home" component={Home} />
+    <Route path="/">
+      <Login />
+    </Route>
+  </div>
+</Router>

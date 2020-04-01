@@ -4,22 +4,24 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public"
+    "start": "sirv public --single"
   },
   "devDependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
-    "@smui/button": "^1.0.0-beta.20",
+    "fa-svelte": "^3.1.0",
     "rollup": "^1.20.0",
     "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-postcss": "^2.5.0",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.0.0",
-    "svelte-material-ui": "^1.0.0-beta.20"
+    "svelte": "^3.20.1"
   },
   "dependencies": {
-    "node-sass": "^4.13.1",
-    "sirv-cli": "^0.4.4"
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "bootstrap": "^4.4.1",
+    "sirv-cli": "^0.4.4",
+    "svelte-routing": "^1.4.2",
+    "sveltestrap": "^3.3.3"
   }
 }
