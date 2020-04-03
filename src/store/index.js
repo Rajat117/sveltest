@@ -8,6 +8,9 @@ export const register = writable({
     registerFlag: false
 });
 
-export const jwt = writable({});
+export const _changePassword = writable({
+    changePasswordFlag: false
+})
+
 
 

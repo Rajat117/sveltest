@@ -1,6 +1,6 @@
 <script>
   import Register from "../layout/Register.svelte";
-  import { jwt, register } from "../store";
+  import { register } from "../store";
   import { baseurl } from "../const/index.js";
   import { navigate } from "svelte-routing";
 
@@ -25,14 +25,17 @@
       mode: "cors"
     };
 
-    const res = await fetch(`${baseurl}/api/register`, data);
-    const resData = await res.json();
-    if (res.ok) {
-      $jwt = resData;
-      navigate("Login", { replace: true });
-    }
+    try {
+      const res = await fetch(`${baseurl}/api/register`, data);
+      const resData = await res.json();
+      if (res.ok) {
+        navigate("Login", { replace: true });
+      }
 
-    setRegisterFlag(false);
+      setRegisterFlag(false);
+    } catch (error) {
+      setRegisterFlag(false);
+    }
   }
 </script>
 

@@ -20,7 +20,7 @@
   let username = "";
   let password = "";
 
-  function handleSubmit() {
+  function handleSubmit(e) {
     const _body = {
       first_name,
       last_name,
@@ -37,28 +37,15 @@
 </script>
 
 <style>
-  .login-card {
-    display: flex;
-    justify-content: center;
+  div * {
+    font-family: "Oswald-Medium", Times, serif;
+    font-weight: 500;
   }
-  .round-edge {
-    border-radius: 23px 23px 23px 23px;
+  textarea {
+    border-radius: 20px;
   }
-  .fb-button {
-    background: #3b5998;
-    color: #ffffff;
-  }
-  .google-button {
-    background: #ffffff;
-    color: #757575;
-  }
-  .submit-button {
-    background: #333333;
-    color: #ffffff;
-  }
-  .signup-text {
-    font-size: 20px;
-    text-decoration: underline;
+  .register-card-div {
+    margin-top: 5%;
   }
 </style>
 
@@ -67,91 +54,97 @@
 {#if $register.registerFlag}
   <Loader />
 {:else}
-  <AuthCard CardHeader="Create New Account">
-    <div slot="body">
-      <Row>
-        <Col>
-          <TextInput
-            bind:value={first_name}
-            className="round-edge"
-            placeholder="First Name" />
-        </Col>
-        <Col>
-          <TextInput
-            bind:value={last_name}
-            className="round-edge"
-            placeholder="Last Name" />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <TextInput
-            bind:value={email}
-            className="round-edge"
-            placeholder="Email" />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <TextInput
-            bind:value={age}
-            className="round-edge"
-            placeholder="Age" />
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={2} class="mb-4 ">
-          <RadioButton
-            type="radio"
-            label="Male"
-            name="gender"
-            value="M"
-            bind:group={gender} />
-        </Col>
-        <Col xs={2} class="mb-4">
-          <RadioButton
-            type="radio"
-            label="Female"
-            name="gender"
-            value="F"
-            bind:group={gender} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <TextInput
-            bind:value={username}
-            className="round-edge"
-            placeholder="User Name" />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <TextInput
-            bind:value={password}
-            className="round-edge"
-            placeholder="Password" />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <textarea
-            bind:value={bio}
-            class="form-control"
-            rows="3"
-            placeholder="Bio..." />
-        </Col>
-      </Row>
-      <Row>
-        <Col class="mt-4">
-          <div class="form-group" on:click|preventDefault={handleSubmit}>
-            <Button type="submit" className="btn-lg submit-button round-edge">
-              Register
-            </Button>
-          </div>
-        </Col>
-      </Row>
-    </div>
-    <div slot="footer" />
-  </AuthCard>
+  <div class="register-card-div">
+    <AuthCard CardHeader="Sign Up" CardHeaderClass="login-header">
+      <div slot="body">
+        <Row>
+          <Col>
+            <TextInput
+              bind:value={first_name}
+              className="round-edge"
+              placeholder="First Name" />
+          </Col>
+          <Col>
+            <TextInput
+              bind:value={last_name}
+              className="round-edge"
+              placeholder="Last Name" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              bind:value={email}
+              className="round-edge"
+              placeholder="Email" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              bind:value={age}
+              className="round-edge"
+              placeholder="Age" />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={2} class="mb-1">
+            <RadioButton
+              type="radio"
+              label="Male"
+              name="gender"
+              value="M"
+              bind:group={gender} />
+          </Col>
+          <Col xs={2} class="mb-1">
+            <RadioButton
+              type="radio"
+              label="Female"
+              name="gender"
+              value="F"
+              bind:group={gender} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              bind:value={username}
+              className="round-edge"
+              placeholder="User Name" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              type="password"
+              bind:value={password}
+              className="round-edge"
+              placeholder="Password" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <textarea
+              bind:value={bio}
+              class="form-control"
+              rows="3"
+              placeholder="Bio..." />
+          </Col>
+        </Row>
+        <Row>
+          <Col class="mt-5">
+            <div class="form-group">
+              <Button
+                type="submit"
+                on:click={handleSubmit}
+                className="btn-lg btn-block submit-button round-edge">
+                Register
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </div>
+      <div slot="footer" />
+    </AuthCard>
+  </div>
 {/if}

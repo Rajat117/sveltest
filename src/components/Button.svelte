@@ -19,8 +19,11 @@
     background: #333333;
     color: #ffffff;
   }
+  .submit-button :hover {
+    color: #ffffff;
+  }
 </style>
 
-<button {type} class={'btn ' + className}>
+<button on:click {type} class={'btn ' + className}>
   <slot />
 </button>

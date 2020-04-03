@@ -1,6 +1,6 @@
 <script>
   import Login from "../layout/Login.svelte";
-  import { jwt, login } from "../store";
+  import { login } from "../store";
   import { baseurl } from "../const/index.js";
   import { navigate } from "svelte-routing";
 
@@ -25,14 +25,19 @@
       mode: "cors"
     };
 
-    const res = await fetch(`${baseurl}/api/login`, data);
-    const resData = await res.json();
-    if (res.ok) {
-      $jwt = resData;
-      navigate("Home", { replace: true });
-    }
+    try {
+      const res = await fetch(`${baseurl}/api/login`, data);
+      const resData = await res.json();
+      if (res.ok) {
+        localStorage.setItem("jwt", resData.access);
+        localStorage.setItem("refresh_jwt", resData.refresh);
+        navigate("Home", { replace: true });
+      }
 
-    setloginFlag(false);
+      setloginFlag(false);
+    } catch (error) {
+      setloginFlag(false);
+    }
   }
 </script>
 

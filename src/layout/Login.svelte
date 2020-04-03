@@ -27,6 +27,14 @@
 </script>
 
 <style>
+  div * {
+    font-family: "Oswald-Medium", Times, serif;
+    font-weight: 500;
+  }
+  .login-email-text {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-weight: 600;
+  }
   .round-edge {
     border-radius: 23px 23px 23px 23px;
   }
@@ -45,6 +53,10 @@
   .signup-text {
     font-size: 20px;
     text-decoration: underline;
+    color: #444444;
+  }
+  .login-card-div {
+    margin-top: 8%;
   }
 </style>
 
@@ -53,65 +65,68 @@
 {#if $login.loginFlag}
   <Loader />
 {:else}
-  <AuthCard CardHeader="Login">
-    <div slot="body">
-      <div>
-        <button class="btn btn-lg btn-block round-edge fb-button">
-          <a href={`${herokuUrl}/auth/login/facebook`}>
-            <span class="d-flex justify-content-start align-content-center">
-              <span class="mr-3">
-                <Icon icon={faFacebook} />
+  <div class="login-card-div">
+    <AuthCard CardHeader="Login" CardHeaderClass="login-header">
+      <div slot="body">
+        <div>
+          <button class="btn btn-lg btn-block round-edge fb-button">
+            <a href={`${herokuUrl}/auth/login/facebook`}>
+              <span class="d-flex justify-content-center align-content-center">
+                <span class="mr-3">
+                  <Icon icon={faFacebook} />
+                </span>
+                <span>Login with Facebook</span>
               </span>
-              <span>Login With Facebook</span>
-            </span>
-          </a>
-        </button>
-        <button class="btn btn-lg btn-block round-edge google-button">
-          <a
-            href={`${herokuUrl}/auth/login/google-oauth2`}
-            class="google-button">
-            <span class="d-flex justify-content-start align-content-center">
-              <span class="mr-3">
-                <Icon icon={faGoogle} />
+            </a>
+          </button>
+          <button class="btn btn-lg btn-block round-edge google-button">
+            <a
+              href={`${herokuUrl}/auth/login/google-oauth2`}
+              class="google-button">
+              <span class="d-flex justify-content-center align-content-center">
+                <span class="mr-3">
+                  <Icon icon={faGoogle} />
+                </span>
+                <span>Login with Google</span>
               </span>
-              <span>Login With Google</span>
-            </span>
-          </a>
-        </button>
-        <div class="mt-5">
-          <h5 class="text-center">Login With Email</h5>
-          <form class="mt-3">
-            <Input
-              name="email"
-              bind:value={email}
-              placeholder="Email"
-              className="round-edge" />
-            <Input
-              name="password"
-              bind:value={password}
-              placeholder="Password"
-              className="round-edge" />
-            <div class="form-group text-center">
-              <button
-                type="submit"
-                class="round-edge btn btn-lg submit-button"
-                on:click|preventDefault={handleSubmit}>
-                Login
-              </button>
-            </div>
-          </form>
+            </a>
+          </button>
+          <div class="mt-5">
+            <h5 class="text-center login-email-text">Login with Email</h5>
+            <form class="mt-3">
+              <Input
+                name="email"
+                bind:value={email}
+                placeholder="Email"
+                className="round-edge" />
+              <Input
+                type="password"
+                name="password"
+                bind:value={password}
+                placeholder="Password"
+                className="round-edge" />
+              <div class="form-group text-center">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-block submit-button round-edge"
+                  on:click|preventDefault={handleSubmit}>
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div slot="footer">
-      <div class="text-center">
-        <h5>Don't have an account?</h5>
-      </div>
-      <Link to="/Register">
+      <div slot="footer">
         <div class="text-center">
-          <p class="signup-text">SIGN UP NOW</p>
+          <p>Don't have an account?</p>
         </div>
-      </Link>
-    </div>
-  </AuthCard>
+        <Link to="/Register">
+          <div class="text-center">
+            <p class="signup-text">SIGN UP NOW</p>
+          </div>
+        </Link>
+      </div>
+    </AuthCard>
+  </div>
 {/if}

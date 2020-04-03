@@ -1,7 +1,7 @@
 <script>
+  export let type = "text";
   export let className = "";
   export let placeholder = "";
-  export let label = "";
   export let name = "";
   export let value = "";
 </script>
@@ -15,10 +15,9 @@
 <div class="form-group">
   <input
     autocomplete="on"
-    type="text"
+    {type}
     on:input={e => (value = e.target.value)}
     {name}
-    class={'form-control form-control-lg ' + className}
+    class={'form-control form-control-lg ' + className + ' text'}
     {placeholder} />
-  <label>{label}</label>
 </div>

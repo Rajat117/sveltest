@@ -2,12 +2,21 @@
   import { Card, CardBody } from "sveltestrap";
 
   export let CardHeader = "Default Header";
+  export let CardHeaderClass = "";
+  export let CardType = "login-card";
 </script>
 
 <style>
-  .login-card {
+  .center-card {
     display: flex;
     justify-content: center;
+  }
+  .login-card {
+    width: 350px;
+  }
+  .register-card {
+    width: 450px;
+    min-width: 220px;
   }
   .round-edge {
     border-radius: 23px 23px 23px 23px;
@@ -28,13 +37,21 @@
     font-size: 20px;
     text-decoration: underline;
   }
+  .login-header {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .change-password {
+    width: 450px;
+  }
 </style>
 
-<div class="login-card mt-5">
-  <div>
+<div class="center-card">
+  <div class="register-card">
     <div class="d-flex flex-column justify-content-center">
       <div>
-        <h3 class="text-center">{CardHeader}</h3>
+        <h3 class={`text-center ${CardHeaderClass}`}>{CardHeader}</h3>
       </div>
       <div class="mt-3">
         <slot name="body" />
