@@ -13,6 +13,7 @@
   }
   .login-card {
     width: 350px;
+    min-width: 220px;
   }
   .register-card {
     width: 450px;

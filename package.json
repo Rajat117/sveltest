@@ -21,7 +21,10 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "bootstrap": "^4.4.1",
     "sirv-cli": "^0.4.4",
+    "svelte-forms-lib": "^1.0.4",
+    "svelte-notifications": "^0.9.9",
     "svelte-routing": "^1.4.2",
-    "sveltestrap": "^3.3.3"
+    "sveltestrap": "^3.3.3",
+    "yup": "^0.28.3"
   }
 }

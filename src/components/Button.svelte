@@ -24,6 +24,6 @@
   }
 </style>
 
-<button on:click {type} class={'btn ' + className}>
+<button on:click {type} class={'btn ' + className} x>
   <slot />
 </button>

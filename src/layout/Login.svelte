@@ -1,9 +1,10 @@
 <script>
-  import Icon from "fa-svelte";
-  import { Link, navigate } from "svelte-routing";
-  import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
   import { createEventDispatcher, onMount } from "svelte";
-  const dispatch = createEventDispatcher();
+  import { Link, navigate } from "svelte-routing";
+  import Icon from "fa-svelte";
+  import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+  import { createForm } from "svelte-forms-lib";
+  import * as yup from "yup";
 
   import Button from "../components/Button.svelte";
   import Input from "../components/TextInput.svelte";
@@ -13,17 +14,34 @@
   import { herokuUrl } from "../const";
   import { login } from "../store";
 
-  let email = "";
-  let password = "";
-  let name = "";
-
-  function handleSubmit() {
-    const _body = {
-      email,
-      password
-    };
-    dispatch("callLoginAPI", _body);
-  }
+  const dispatch = createEventDispatcher();
+  const {
+    form,
+    errors,
+    state,
+    touched,
+    isValid,
+    isSubmitting,
+    isValidating,
+    handleBlur,
+    handleChange,
+    handleSubmit
+  } = createForm({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    validationSchema: yup.object().shape({
+      password: yup.string().required(),
+      email: yup
+        .string()
+        .email()
+        .required()
+    }),
+    onSubmit: values => {
+      dispatch("callLoginAPI", values);
+    }
+  });
 </script>
 
 <style>
@@ -93,23 +111,26 @@
           </button>
           <div class="mt-5">
             <h5 class="text-center login-email-text">Login with Email</h5>
-            <form class="mt-3">
+            <form class:valid={$isValid} on:submit={handleSubmit}>
               <Input
                 name="email"
-                bind:value={email}
+                on:keyup={handleChange}
                 placeholder="Email"
-                className="round-edge" />
+                className="round-edge"
+                errors={$errors.email}
+                touched={$touched.email} />
               <Input
                 type="password"
                 name="password"
-                bind:value={password}
+                on:keyup={handleChange}
                 placeholder="Password"
-                className="round-edge" />
+                className="round-edge"
+                errors={$errors.password}
+                touched={$touched.password} />
               <div class="form-group text-center">
                 <button
                   type="submit"
-                  class="btn btn-lg btn-block submit-button round-edge"
-                  on:click|preventDefault={handleSubmit}>
+                  class="btn btn-lg btn-block submit-button round-edge">
                   Login
                 </button>
               </div>

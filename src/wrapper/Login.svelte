@@ -1,8 +1,12 @@
 <script>
+  import { navigate } from "svelte-routing";
+  import { getNotificationsContext } from "svelte-notifications";
+
   import Login from "../layout/Login.svelte";
   import { login } from "../store";
   import { baseurl } from "../const/index.js";
-  import { navigate } from "svelte-routing";
+
+  const { addNotification } = getNotificationsContext();
 
   function setloginFlag(value) {
     login.update(_oldValue => {
@@ -32,11 +36,27 @@
         localStorage.setItem("jwt", resData.access);
         localStorage.setItem("refresh_jwt", resData.refresh);
         navigate("Home", { replace: true });
+      } else {
+        setloginFlag(false);
+        addNotification({
+          text: "heading",
+          heading: "Failure!",
+          type: "error",
+          position: "top-right",
+          description: resData.message,
+          removeAfter: 2000
+        });
       }
-
-      setloginFlag(false);
     } catch (error) {
       setloginFlag(false);
+      addNotification({
+        text: "heading",
+        position: "top-right",
+        heading: "Failure!",
+        type: "error",
+        description: error.message,
+        removeAfter: 2000
+      });
     }
   }
 </script>
