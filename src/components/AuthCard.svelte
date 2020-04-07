@@ -3,7 +3,6 @@
 
   export let CardHeader = "Default Header";
   export let CardHeaderClass = "";
-  export let CardType = "login-card";
 </script>
 
 <style>
