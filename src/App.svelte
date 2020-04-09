@@ -12,6 +12,22 @@
 
   const token = localStorage.getItem("jwt");
 
+  if (window.location.pathname == "/Social/Redirect") {
+    if (
+      !window.location.search.includes("refresh") &&
+      !window.location.search.includes("access")
+    ) {
+      navigate("/");
+    }
+    let access = window.location.search.split("&access=");
+    let refresh = access[0].replace("?refresh=", "");
+    if (access[1] && refresh) {
+      localStorage.setItem("jwt", access[1]);
+      localStorage.setItem("refresh_jwt", refresh);
+      navigate("/Home");
+    }
+  }
+
   if (!token && !["/Login", "/Register"].includes(window.location.pathname)) {
     navigate("/Login");
   }
