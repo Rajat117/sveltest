@@ -10,8 +10,6 @@
 
   export let url = "";
 
-  const token = localStorage.getItem("jwt");
-
   if (window.location.pathname == "/Social/Redirect") {
     if (
       !window.location.search.includes("refresh") &&
@@ -28,7 +26,11 @@
     }
   }
 
-  if (!token && !["/Login", "/Register"].includes(window.location.pathname)) {
+  console.log(localStorage.getItem("jwt"), "jjj");
+  if (
+    !localStorage.getItem("jwt") &&
+    !["/Login", "/Register"].includes(window.location.pathname)
+  ) {
     navigate("/Login");
   }
 </script>
