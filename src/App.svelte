@@ -26,7 +26,6 @@
     }
   }
 
-  console.log(localStorage.getItem("jwt"), "jjj");
   if (
     !localStorage.getItem("jwt") &&
     !["/Login", "/Register"].includes(window.location.pathname)
