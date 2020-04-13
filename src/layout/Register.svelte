@@ -37,16 +37,32 @@
       bio: ""
     },
     validationSchema: yup.object().shape({
-      first_name: yup.string().required(),
-      last_name: yup.string().required(),
+      first_name: yup
+        .string()
+        .required()
+        .min(3),
+      last_name: yup
+        .string()
+        .required()
+        .min(3),
       email: yup
         .string()
         .email()
         .required(),
       gender: yup.string().required(),
-      age: yup.number().required(),
-      username: yup.string().required(),
-      password: yup.string().required(),
+      age: yup
+        .number()
+        .required()
+        .min(16)
+        .max(100),
+      username: yup
+        .string()
+        .required()
+        .min(3),
+      password: yup
+        .string()
+        .required()
+        .min(6),
       bio: yup.string().required()
     }),
     onSubmit: values => {
