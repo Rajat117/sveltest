@@ -20,6 +20,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "bootstrap": "^4.4.1",
+    "lodash": "^4.17.15",
     "sirv-cli": "^0.4.4",
     "svelte-forms-lib": "^1.0.4",
     "svelte-notifications": "^0.9.9",

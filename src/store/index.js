@@ -1,8 +1,11 @@
 import { writable } from 'svelte/store';
 
 export const login = writable({
-    loginFlag: false
+    loginFlag: false,
+    user: {}
 });
+
+export const _user = writable(JSON.parse(localStorage.getItem("user")) || {});
 
 export const register = writable({
     registerFlag: false

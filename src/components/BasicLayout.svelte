@@ -1,12 +1,14 @@
 <script>
   import Icon from "fa-svelte";
   import { Link, navigate } from "svelte-routing";
+  import get from "lodash/get";
   import {
     faSignOutAlt,
     faLock,
     faHome
   } from "@fortawesome/free-solid-svg-icons";
 
+  import { _user } from "../store";
   import Header from "../components/Header.svelte";
 
   function handleLogout() {
@@ -129,7 +131,9 @@
   <div class="sidebar-aside-area">
     <div class="navbar">
       <div class="profile-badge">
-        <p class="profile-name">Rajat</p>
+        <p class="profile-name">
+          {get($_user, 'first_name', '') + ' ' + get($_user, 'last_name', '')}
+        </p>
         <img alt="Rajat" src="geazy.jpg" class="profile-logo" />
       </div>
     </div>
