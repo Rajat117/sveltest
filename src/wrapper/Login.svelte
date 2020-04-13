@@ -3,12 +3,10 @@
   import { getNotificationsContext } from "svelte-notifications";
 
   import Login from "../layout/Login.svelte";
-  import { login, _user } from "../store";
+  import { login } from "../store";
   import { baseurl } from "../const/index.js";
 
   const { addNotification } = getNotificationsContext();
-
-  _user.subscribe(val => localStorage.setItem("user", JSON.stringify(val)));
 
   function setloginFlag(value) {
     login.update(_oldValue => {
@@ -37,19 +35,6 @@
       if (res.ok) {
         localStorage.setItem("jwt", resData.access);
         localStorage.setItem("refresh_jwt", resData.refresh);
-        const userData = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + resData.access
-          },
-          mode: "cors"
-        };
-        const userRes = await fetch(`${baseurl}/api/me`, userData);
-        const userResData = await userRes.json();
-        if (userRes.ok) {
-          $_user = userResData.data;
-        }
         navigate("Home", { replace: true });
       } else {
         setloginFlag(false);
