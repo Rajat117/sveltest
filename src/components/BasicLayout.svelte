@@ -5,17 +5,26 @@
   import {
     faSignOutAlt,
     faLock,
-    faHome
+    faHome,
+    faAlignJustify
   } from "@fortawesome/free-solid-svg-icons";
 
   import { _user } from "../store";
   import Header from "../components/Header.svelte";
   import { clearRefreshTokenInterval } from "../utils";
 
+  let altFlag = true;
+  let sidebarToggle = false;
+
   function handleLogout() {
     localStorage.clear();
     clearRefreshTokenInterval();
     navigate("Login", { replace: true });
+  }
+
+  function handleSidebarToggle() {
+    altFlag = !altFlag;
+    sidebarToggle = !sidebarToggle;
   }
 </script>
 
@@ -24,6 +33,10 @@
     min-width: 220px;
     height: 100vh;
     background-color: #333333;
+  }
+  .sidebar-hidden {
+    display: block;
+    transition: opacity 1s ease-out;
   }
   .profile-badge {
     display: flex;
@@ -64,7 +77,7 @@
     height: 58px;
     background-color: #ffffff;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
   .profile-badge {
     display: flex;
@@ -93,6 +106,35 @@
   .add-cursor {
     cursor: pointer;
   }
+
+  div :global(.side-bar-button) {
+    display: none;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 600px) {
+    div :global(.side-bar-button) {
+      display: block;
+      cursor: pointer;
+    }
+    .sidebar {
+      min-width: 104px;
+      height: 100vh;
+      background-color: #333333;
+    }
+    .sidebar-alt-hide,
+    .dashboard-logo-name {
+      display: none;
+    }
+    .side-list {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .side-list-name {
+      margin-left: 0px;
+    }
+  }
 </style>
 
 <Header />
@@ -105,7 +147,10 @@
 </svelte:head>
 
 <div class="d-flex">
-  <div class="sidebar">
+  <div
+    class="sidebar"
+    class:sidebar-alt-hide={altFlag}
+    class:sidebar-hidden={sidebarToggle}>
     <div class="profile-badge m-2">
       <img alt="logo" src="favicon.png" class="dashboard-logo" />
       <p class="dashboard-logo-name">DjangoSvelte</p>
@@ -121,7 +166,7 @@
       <Link to="/Change-Password">
         <div class="side-list">
           <Icon class="side-list-icon" icon={faLock} />
-          <span class="side-list-name">Change Password</span>
+          <span class="side-list-name">Password</span>
         </div>
       </Link>
       <div class="side-list add-cursor" on:click={handleLogout}>
@@ -132,6 +177,11 @@
   </div>
   <div class="sidebar-aside-area">
     <div class="navbar">
+      <div>
+        <span on:click={handleSidebarToggle}>
+          <Icon class="side-bar-button add-cursor" icon={faAlignJustify} />
+        </span>
+      </div>
       <div class="profile-badge">
         <p class="profile-name">
           {get($_user, 'first_name', '') + ' ' + get($_user, 'last_name', '')}
