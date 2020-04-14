@@ -3,20 +3,24 @@
 
   export let CardHeader = "Default Header";
   export let CardHeaderClass = "";
+  export let CardClass = "register-card";
 </script>
 
 <style>
   .center-card {
     display: flex;
     justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
   }
   .login-card {
     width: 350px;
-    min-width: 220px;
   }
   .register-card {
     width: 450px;
-    min-width: 220px;
+  }
+  .change-password-card {
+    width: 450px;
   }
   .round-edge {
     border-radius: 23px 23px 23px 23px;
@@ -42,13 +46,19 @@
     font-size: 30px;
     font-weight: 600;
   }
-  .change-password {
-    width: 450px;
+
+  @media screen and (max-width: 600px) {
+    .login-card {
+      min-width: 280px;
+    }
+    .change-password-card {
+      width: 280px;
+    }
   }
 </style>
 
 <div class="center-card">
-  <div class="register-card">
+  <div class={CardClass}>
     <div class="d-flex flex-column justify-content-center">
       <div>
         <h3 class={`text-center ${CardHeaderClass}`}>{CardHeader}</h3>

@@ -1,8 +1,12 @@
 <script>
+  import { getNotificationsContext } from "svelte-notifications";
+
   import ChangePassword from "../layout/ChangePassword.svelte";
   import { _changePassword } from "../store";
   import { baseurl } from "../const/index.js";
   import { navigate } from "svelte-routing";
+
+  const { addNotification } = getNotificationsContext();
 
   function setChangePasswordFlag(value) {
     _changePassword.update(_oldValue => {
@@ -31,12 +35,36 @@
       const res = await fetch(`${baseurl}/api/change-password`, data);
       const resData = await res.json();
       if (res.ok) {
-        // navigate("Home", { replace: true });
+        setChangePasswordFlag(false);
+        addNotification({
+          text: "heading",
+          heading: "Success!",
+          type: "success",
+          position: "top-right",
+          description: resData.message,
+          removeAfter: 2000
+        });
+      } else {
+        setChangePasswordFlag(false);
+        addNotification({
+          text: "heading",
+          heading: "Failure!",
+          type: "error",
+          position: "top-right",
+          description: resData.message,
+          removeAfter: 2000
+        });
       }
-
-      setChangePasswordFlag(false);
     } catch (error) {
       setChangePasswordFlag(false);
+      addNotification({
+        text: "heading",
+        heading: "Failure!",
+        type: "error",
+        position: "top-right",
+        description: error.message,
+        removeAfter: 2000
+      });
     }
   }
 </script>

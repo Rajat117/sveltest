@@ -31,7 +31,10 @@
     {#if _changePassword.changePasswordFlag}
       <Loader />
     {:else}
-      <AuthCard CardHeader="Change Password" CardHeaderClass="change-password">
+      <AuthCard
+        CardHeader="Change Password"
+        CardClass="change-password-card"
+        CardHeaderClass="login-header">
         <div slot="body">
           <form>
             <TextInput

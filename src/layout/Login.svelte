@@ -84,7 +84,10 @@
   <Loader />
 {:else}
   <div class="login-card-div">
-    <AuthCard CardHeader="Login" CardHeaderClass="login-header">
+    <AuthCard
+      CardHeader="Login"
+      CardClass="login-card"
+      CardHeaderClass="login-header">
       <div slot="body">
         <div>
           <button class="btn btn-lg btn-block round-edge fb-button">
