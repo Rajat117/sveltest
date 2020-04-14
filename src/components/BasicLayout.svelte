@@ -10,9 +10,11 @@
 
   import { _user } from "../store";
   import Header from "../components/Header.svelte";
+  import { clearRefreshTokenInterval } from "../utils";
 
   function handleLogout() {
     localStorage.clear();
+    clearRefreshTokenInterval();
     navigate("Login", { replace: true });
   }
 </script>

@@ -6,21 +6,14 @@
   import Loader from "./Loader.svelte";
   import { baseurl } from "../const";
   import { _user, login } from "../store";
+  import { getUserInfo } from "../utils";
 
   _user.subscribe(val => localStorage.setItem("user", JSON.stringify(val)));
 
   onMount(async () => {
     try {
       $login.loginFlag = true;
-      const userData = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt")
-        },
-        mode: "cors"
-      };
-      const userRes = await fetch(`${baseurl}/api/me`, userData);
+      const userRes = await getUserInfo();
       const userResData = await userRes.json();
       if (userRes.ok) {
         $_user = userResData.data;
@@ -37,7 +30,9 @@
 </style>
 
 {#if $login.loginFlag}
-  <Loader />
+  <BasicLayout>
+    <Loader />
+  </BasicLayout>
 {:else}
   <BasicLayout>
     <div slot="main-body" class="mt-5">

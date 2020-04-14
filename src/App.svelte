@@ -7,8 +7,29 @@
   import Home from "./layout/Home.svelte";
   import ChangePassword from "./wrapper/ChangePassword.svelte";
   import CustomNotification from "./components/CustomNotification.svelte";
+  import {
+    getUserInfo,
+    createRefreshTokenInterval,
+    clearRefreshTokenInterval,
+    logout
+  } from "./utils";
 
   export let url = "";
+
+  async function checkAuthToken() {
+    try {
+      const res = await getUserInfo();
+      if (res.status === 401) {
+        throw new Error();
+      } else {
+        createRefreshTokenInterval();
+      }
+    } catch (error) {
+      logout();
+      clearRefreshTokenInterval();
+      navigate("/Login");
+    }
+  }
 
   if (window.location.pathname == "/Social/Redirect") {
     if (
@@ -31,6 +52,8 @@
     !["/Login", "/Register"].includes(window.location.pathname)
   ) {
     navigate("/Login");
+  } else {
+    checkAuthToken();
   }
 </script>
 
@@ -45,7 +68,11 @@
   <Router {url}>
     <div>
       <Route path="/">
-        <Login />
+        {#if localStorage.getItem('jwt')}
+          <Home />
+        {:else}
+          <Login />
+        {/if}
       </Route>
       <Route path="Login" caseSensitive={false} component={Login} />
       <Route path="Register" component={Register} />

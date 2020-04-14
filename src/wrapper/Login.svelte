@@ -5,6 +5,10 @@
   import Login from "../layout/Login.svelte";
   import { login } from "../store";
   import { baseurl } from "../const/index.js";
+  import {
+    createRefreshTokenInterval,
+    clearRefreshTokenInterval
+  } from "../utils";
 
   const { addNotification } = getNotificationsContext();
 
@@ -35,6 +39,8 @@
       if (res.ok) {
         localStorage.setItem("jwt", resData.access);
         localStorage.setItem("refresh_jwt", resData.refresh);
+        createRefreshTokenInterval();
+
         navigate("Home", { replace: true });
       } else {
         setloginFlag(false);
