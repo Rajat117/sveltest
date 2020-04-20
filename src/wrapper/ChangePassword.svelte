@@ -9,12 +9,7 @@
   const { addNotification } = getNotificationsContext();
 
   function setChangePasswordFlag(value) {
-    _changePassword.update(_oldValue => {
-      return {
-        ..._oldValue,
-        changePasswordFlag: value
-      };
-    });
+    $_changePassword.changePasswordFlag = value;
   }
 
   async function handlePasswordChange(e) {
@@ -34,6 +29,7 @@
     try {
       const res = await fetch(`${baseurl}/api/change-password`, data);
       const resData = await res.json();
+
       if (res.ok) {
         setChangePasswordFlag(false);
         addNotification({
