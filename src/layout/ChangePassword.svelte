@@ -24,11 +24,11 @@
     handleSubmit
   } = createForm({
     initialValues: {
-      current_password: "",
+      confirm_new_password: "",
       new_password: ""
     },
     validationSchema: yup.object().shape({
-      current_password: yup.string().required(),
+      confirm_new_password: yup.string().required(),
       new_password: yup
         .string()
         .required()
@@ -57,20 +57,20 @@
           <form class:valid={$isValid} on:submit={handleSubmit}>
             <TextInput
               type="password"
-              on:keyup={handleChange}
-              name="current_password"
-              className="round-edge"
-              placeholder="Current Password"
-              errors={$errors.current_password}
-              touched={$touched.current_password} />
-            <TextInput
-              type="password"
               name="new_password"
               on:keyup={handleChange}
               className="round-edge"
               placeholder="New Password"
               errors={$errors.new_password}
               touched={$touched.new_password} />
+            <TextInput
+              type="password"
+              on:keyup={handleChange}
+              name="confirm_new_password"
+              className="round-edge"
+              placeholder="Confirm Password"
+              errors={$errors.confirm_new_password}
+              touched={$touched.confirm_new_password} />
             <Button
               type="submit"
               className="btn-lg btn-block submit-button round-edge">
